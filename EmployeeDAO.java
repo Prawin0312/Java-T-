@@ -83,9 +83,9 @@ public class EmployeeDAO
 	  {
 		  Class.forName("oracle.jdbc.driver.OracleDriver");
 		  con = DriverManager.getConnection(url,"scott","tiger");
-		  pst=con.prepareStatement("delete from employee where id=?");
+		  pst=con.prepareStatement("delete from employee where empid=?");
 		  Employee emp = null;
-		pst.setInt(1,emp.getEmpid());
+		  pst.setInt(1,id);
 		  count = pst.executeUpdate();
 	  }
 	  catch(Exception e)

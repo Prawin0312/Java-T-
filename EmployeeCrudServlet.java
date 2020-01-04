@@ -2,6 +2,8 @@ package com.del.second.entity;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +21,7 @@ public class EmployeeCrudServlet extends HttpServlet
 		Employee e = new Employee();
 		String message="Succesfully";
 		e.setEmpid(Integer.parseInt(request.getParameter("empid")));
+		RequestDispatcher rd = request.getRequestDispatcher("EmployeeCrud.jsp");
 		if(submit.contentEquals("Add_Employee") || submit.contentEquals("Modify_Employee"))
 		{
 			e.setName(request.getParameter("empname"));
@@ -37,14 +40,20 @@ public class EmployeeCrudServlet extends HttpServlet
 			}
 			
 		}
-		else if(submit.equals("Delete_Employee"))
+		else if(submit.equals("delete_Employee"))
 		{
 			if(edao.removeEmployee(e.getEmpid()))
 				message=message+"Record Deleted";
 			else
 				message="deletion fail";
 		}
+		else if(submit.equals("Show_Employee"))
+		{
+			e = edao.getEmployee(e.getEmpid());
+			request.setAttribute("emp",e);
+		}
 		out.print("<h1><center>"+message+"</center></h1>");
+		rd.include(request,response);
 	}
 
 }
