@@ -1,55 +1,35 @@
-package com.deloitte.firstmvn.hibfirst.entity;
-import java.sql.Date;
-import javax.persistence.Column;
+package com.deloitte.firstmvn.hibsecond.entity;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 @Entity
-@Table(name="employee")
-public class Employee
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn(name="type")
+public abstract class Employee
 {
-   @Id
-   int empid;
-   @Column(name="empname")
-   String name;
-   int salary;
-   Date doj;
-   
-public Employee() {
-	super();
-}
-public Employee(int empid, String name, int salary,Date doj) {
-	super();
+  @Id
+  int empid;
+  String empname;
+  public Employee(){}
+  public Employee(int empid, String empname) {
+	
 	this.empid = empid;
-	this.name = name;
-	this.salary = salary;
-	this.doj = doj;
+	this.empname = empname;
+	
 }
-
 public int getEmpid() {
 	return empid;
 }
 public void setEmpid(int empid) {
 	this.empid = empid;
 }
-public String getName() {
-	return name;
+public String getEmpname() {
+	return empname;
 }
-public void setName(String name) {
-	this.name = name;
+public void setEmpname(String empname) {
+	this.empname = empname;
 }
-public double getSalary() {
-	return salary;
+  
 }
-public void setSalary(int salary) {
-	this.salary = salary;
-}
-public Date getDoj() {
-	return doj;
-}
-public void setDoj(Date doj) {
-	this.doj = doj;
-}	   
-}
-
-
